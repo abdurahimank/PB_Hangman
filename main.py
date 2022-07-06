@@ -1,45 +1,45 @@
 import random
-import string
 
 
+print("H A N G M A N")
+win = 0
+loss = 0
 while True:
-    print("H A N G M A N")
-    play = input('Type "play" to play the game, "exit" to quit:')
-    if play == "play":
-        words_list = ['python', 'java', 'kotlin', 'javascript']
-        word = random.choice(words_list)
-        player = "-" * len(word)
+    mode = input('Type "play" to play the game, "results" to show the scoreboard, and "exit" to quit: ')
+    if mode == "play":
+        word_list = ("python", "java", "swift", "javascript")
+        word = random.choice(word_list)
+        user = "-" * len(word)
         life = 8
-        guessed_letters = []
+        already_guessed = []
         while life > 0:
-            print()
-            print(player)
+            print("\n", user, sep="")
             letter = input("Input a letter: ")
             if len(letter) != 1:
-                print("You should input a single letter")
+                print("Please, input a single letter.")
                 continue
-            if letter not in string.ascii_lowercase:
-                print("Please enter a lowercase English letter")
+            elif letter.isupper() or not letter.isalpha():
+                print("Please, enter a lowercase letter from the English alphabet.")
                 continue
-            if letter in guessed_letters:
-                print("You've already guessed this letter")
+            if letter in already_guessed:
+                print("You've already guessed this letter.")
+                continue
             elif letter in word:
-                player = list(player)
-                idx = 0
-                for i in word:
-                    if i == letter:
-                        player[idx] = letter
-                    idx += 1
-                player = "".join(player)
+                for i in range(len(word)):
+                    if word[i] == letter:
+                        user = user[:i] + letter + user[i + 1:]
             else:
-                print("That letter doesn't appear in the word")
+                print("That letter doesn't appear in the word.")
                 life -= 1
-            guessed_letters.append(letter)
-            if player == word:
-                print("You guessed the word!\nYou survived!")
+            already_guessed.append(letter)
+            if user == word:
+                print(f"You guessed the word {user}!", "You survived!", sep="\n")
+                win += 1
                 break
-        else:
-            print("You lost!")
-        continue
-    else:
+        if user != word:
+            print("\nYou lost!")
+            loss += 1
+    elif mode == "results":
+        print(f"You won: {win} times.", f"You lost: {loss} times.", sep="\n")
+    elif mode == "exit":
         break
