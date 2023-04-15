@@ -1,3 +1,4 @@
-# Stage 1/8: Hello, Hangman
-print("""H A N G M A N
-The game will be available soon.""")
+# Stage 2/8: Let’s play a game
+print("H A N G M A N")
+word = input("Guess the word: ")
+print("You survived!" if word == "python" else "You lost!")
