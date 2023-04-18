@@ -1,4 +1,4 @@
-# Stage 5/8: Keep trying
+# Stage 6/8: The value of life
 import random
 
 
@@ -8,17 +8,20 @@ word = random.choice(words)
 attempt = 8
 temp_word = list("-" * len(word))
 while attempt > 0:
-    attempt -= 1
     print("\n", "".join(temp_word), sep="")
     letter = input("Input a letter: ")
-    if letter in word:
+    if letter in temp_word:
+        print("No improvements.")
+        attempt -= 1
+    elif letter in word:
         for i in range(len(word)):
             if letter == word[i]:
                 temp_word[i] = letter
     else:
         print("That letter doesn't appear in the word.")
-    # if "".join(temp_word) == word:
-       # break
-# guessed_word = "".join(temp_word)
-# print("You survived!" if guessed_word == word else "You lost!")
-print("Thanks for playing!")
+        attempt -= 1
+    if "".join(temp_word) == word:
+        print("You guessed the word!")
+        break
+guessed_word = "".join(temp_word)
+print("You survived!" if guessed_word == word else "You lost!")
